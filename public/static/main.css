@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+body {
+     font-family: 'Inter', sans-serif;
+}
+
+.bg-strakon-blue {
+     background-color: #0066b3;
+}
+
+.bg-strakon-orange {
+     background-color: #ff6600;
+}
+
+.bg-strakon-green {
+     background-color: #a0ab39;
+}
+
+.text-strakon-blue {
+     color: #0066b3;
+}
+
+.text-strakon-orange {
+     color: #ff6600;
+}
+
+.border-strakon-orange {
+     border-color: #ff6600;
+}
+
+.gradient-bg {
+     background: linear-gradient(135deg, #0066b3 0%, #004d87 100%);
+}
+
+.gradient-text {
+     background: linear-gradient(135deg, #0066b3 0%, #ff6600 100%);
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+     background-clip: text;
+}
+
+.glass-card {
+     background: rgba(255, 255, 255, 0.95);
+     backdrop-filter: blur(10px);
+     border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.animate-float {
+     animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+     0%,
+     100% {
+          transform: translateY(0);
+     }
+
+     50% {
+          transform: translateY(-10px);
+     }
+}
+
+.hover-lift {
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+     transform: translateY(-5px);
+     box-shadow: 0 20px 40px rgba(0, 102, 179, 0.2);
+}
+
+.btn-strakon {
+     background-color: #ff6600;
+     transition: all 0.3s ease;
+}
+
+.btn-strakon:hover {
+     background-color: #e65c00;
+     transform: translateY(-2px);
+     box-shadow: 0 10px 25px rgba(255, 102, 0, 0.3);
+}
+
+.btn-strakon-outline {
+     border: 2px solid #ff6600;
+     color: #ff6600;
+     transition: all 0.3s ease;
+}
+
+.btn-strakon-outline:hover {
+     background-color: #ff6600;
+     color: white;
+}
+
+.btn-strakon2 {
+     background-color: #0066b3;
+     transition: all 0.3s ease;
+}
+
+.btn-strakon2:hover {
+     background-color: #004d87;
+     transform: translateY(-2px);
+     box-shadow: 0 10px 25px rgba(0, 102, 179, 0.3);
+}
+
+.btn-strakon-outline2 {
+     border: 2px solid #0066b3;
+     color: #0066b3;
+     transition: all 0.3s ease;
+}
+
+.btn-strakon-outline2:hover {
+     background-color: #0066b3;
+     color: white;
+}
+
+/* New UI Components */
+.sticky-header {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     z-index: 1000;
+     background: rgba(255, 255, 255, 0.8);
+     backdrop-filter: blur(12px);
+     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+     transition: all 0.3s ease;
+}
+
+.sticky-header.scrolled {
+     /* Only adjust vertical padding to shrink the header, preserve horizontal padding */
+     padding-top: 0.5rem;
+     padding-bottom: 0.5rem;
+     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.fab-btn {
+     position: fixed;
+     bottom: 2rem;
+     right: 2rem;
+     z-index: 999;
+     display: none;
+     animation: bounce-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@media (max-width: 768px) {
+     .fab-btn {
+          display: block;
+     }
+}
+
+@keyframes bounce-in {
+     0% {
+          transform: scale(0);
+          opacity: 0;
+     }
+
+     100% {
+          transform: scale(1);
+          opacity: 1;
+     }
+}
+
+.pulse-animation {
+     animation: pulse-orange 2s infinite;
+}
+
+@keyframes pulse-orange {
+     0% {
+          box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.4);
+     }
+
+     70% {
+          box-shadow: 0 0 0 10px rgba(255, 102, 0, 0);
+     }
+
+     100% {
+          box-shadow: 0 0 0 0 rgba(255, 102, 0, 0);
+     }
+}
