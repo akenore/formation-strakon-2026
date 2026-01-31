@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://formation.strakon.fr'),
   title: "Formation STRAKON Gratuite 2026 - Coffrage & Armatures BIM",
   description: "Découvrez STRAKON en une journée. Formation 100% gratuite sur le coffrage et les armatures pour les bureaux d'études en France et au Luxembourg. Inscrivez-vous avec votre numéro de TVA.",
   keywords: ["STRAKON", "Formation STRAKON", "Formation BIM", "Coffrage", "Armatures", "BIM France", "BIM Luxembourg", "C2IT", "DICAD"],
