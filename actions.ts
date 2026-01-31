@@ -4,15 +4,18 @@ import * as Brevo from "@getbrevo/brevo";
 
 import { RegistrationSchema } from "@/lib/schemas/contact-schema";
 
-const apiInstance = new Brevo.ContactsApi();
-const apiKey = process.env.BREVO_API_KEY || "";
-
-if (apiKey) {
-     apiInstance.setApiKey(Brevo.ContactsApiApiKeys.apiKey, apiKey);
-}
-
 export async function submitContact(formData: FormData) {
+     const apiKey = process.env.BREVO_API_KEY;
      const listId = parseInt(process.env.LIST_ID || "42", 10);
+
+     if (!apiKey) {
+          console.error("CRITICAL: BREVO_API_KEY is not defined in environment variables.");
+          return { success: false, error: "Configuration du serveur incomplète (Missing API Key)." };
+     }
+
+     // Configure API instance
+     const apiInstance = new Brevo.ContactsApi();
+     apiInstance.setApiKey(Brevo.ContactsApiApiKeys.apiKey, apiKey);
 
      // Extract data for validation
      const rawData = {
