@@ -13,6 +13,11 @@ export async function submitContact(formData: FormData) {
           return { success: false, error: "Configuration du serveur incomplète (Missing API Key)." };
      }
 
+     if (Number.isNaN(listId) || listId <= 0) {
+          console.error("CRITICAL: LIST_ID is invalid:", process.env.LIST_ID);
+          return { success: false, error: "Configuration du serveur incomplète (Invalid LIST_ID)." };
+     }
+
      // Configure API instance
      const apiInstance = new Brevo.ContactsApi();
      apiInstance.setApiKey(Brevo.ContactsApiApiKeys.apiKey, apiKey);
@@ -83,9 +88,18 @@ export async function submitContact(formData: FormData) {
           if (error.response) {
                console.error("Response Status:", error.response.status);
                console.error("Response Body:", JSON.stringify(error.response.body, null, 2));
+               const apiErrorMessage =
+                    error.response.body?.message ||
+                    error.response.body?.error ||
+                    error.response.body?.details ||
+                    "Erreur Brevo inconnue.";
+               return {
+                    success: false,
+                    error: `Erreur Brevo (${error.response.status}): ${apiErrorMessage}`,
+               };
           } else {
                console.error("Error Message:", error.message);
+               return { success: false, error: `Erreur serveur: ${error.message}` };
           }
-          return { success: false, error: "Une erreur est survenue lors de l'envoi du formulaire." };
      }
 }
