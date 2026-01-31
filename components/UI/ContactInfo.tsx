@@ -33,7 +33,11 @@ export default function ContactInfo() {
                               <p className="text-gray-600 text-sm">+352 27 996 597</p>
                          </div>
 
-                         <div className="text-center p-6 bg-gray-50 rounded-xl hover-lift">
+                         <button
+                              id="brevo-chat-trigger"
+                              onClick={() => (window as any).BrevoConversations?.('openChat')}
+                              className="text-center p-6 bg-gray-50 rounded-xl hover-lift block w-full"
+                         >
                               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                                    <svg className="w-8 h-8 text-strakon-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -41,7 +45,8 @@ export default function ContactInfo() {
                               </div>
                               <h3 className="font-bold text-gray-900 mb-2">Support</h3>
                               <p className="text-gray-600 text-sm">Assistance technique disponible</p>
-                         </div>
+                              <span className="inline-block mt-3 text-strakon-blue text-xs font-semibold hover:underline">Ouvrir le chat →</span>
+                         </button>
                     </div>
                </div>
           </div>
