@@ -59,11 +59,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
+      <GoogleAnalytics gaId="AW-16698872688" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <GoogleAnalytics gaId="AW-16698872688" />
+
         <Script
           id="brevo-conversations"
           strategy="afterInteractive"
