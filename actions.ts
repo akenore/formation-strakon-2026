@@ -10,23 +10,14 @@ export async function submitContact(formData: FormData) {
 
      if (!apiKey) {
           console.error("CRITICAL: BREVO_API_KEY is not defined in environment variables.");
-          return {
-               success: false,
-               error: "Configuration du serveur incomplète (Missing API Key).",
-               debug: { brevoApiKeyLength: 0 },
-          };
+          return { success: false, error: "Configuration du serveur incomplète (Missing API Key)." };
      }
 
-     const brevoApiKeyLength = apiKey.length;
-     console.log("BREVO_API_KEY loaded (length):", brevoApiKeyLength);
+     console.log("BREVO_API_KEY loaded (length):", apiKey.length);
 
      if (Number.isNaN(listId) || listId <= 0) {
           console.error("CRITICAL: LIST_ID is invalid:", process.env.LIST_ID);
-          return {
-               success: false,
-               error: "Configuration du serveur incomplète (Invalid LIST_ID).",
-               debug: { brevoApiKeyLength, listIdRaw: process.env.LIST_ID ?? null },
-          };
+          return { success: false, error: "Configuration du serveur incomplète (Invalid LIST_ID)." };
      }
 
      // Configure API instance
@@ -93,7 +84,7 @@ export async function submitContact(formData: FormData) {
 
           await apiInstance.createContact(contact);
           console.log("Brevo submission successful");
-           return { success: true };
+          return { success: true };
      } catch (error: any) {
           console.error("Error submitting to Brevo:");
           if (error.response) {
@@ -107,20 +98,10 @@ export async function submitContact(formData: FormData) {
                return {
                     success: false,
                     error: `Erreur Brevo (${error.response.status}): ${apiErrorMessage}`,
-                    debug: {
-                         brevoApiKeyLength,
-                         listId,
-                         brevoStatus: error.response.status,
-                         brevoMessage: apiErrorMessage,
-                    },
                };
           } else {
                console.error("Error Message:", error.message);
-               return {
-                    success: false,
-                    error: `Erreur serveur: ${error.message}`,
-                    debug: { brevoApiKeyLength, listId },
-               };
+               return { success: false, error: `Erreur serveur: ${error.message}` };
           }
      }
 }
