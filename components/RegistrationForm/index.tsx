@@ -50,9 +50,10 @@ export default function RegistrationForm() {
                     });
                     reset();
                } else {
+                    const debugInfo = result.debug ? ` (${JSON.stringify(result.debug)})` : "";
                     setSubmitStatus({
                          success: false,
-                         message: result.error || "Une erreur est survenue.",
+                         message: `${result.error || "Une erreur est survenue."}${debugInfo}`,
                     });
                }
           } catch (error) {
