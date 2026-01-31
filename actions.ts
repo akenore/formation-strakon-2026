@@ -13,6 +13,8 @@ export async function submitContact(formData: FormData) {
           return { success: false, error: "Configuration du serveur incomplète (Missing API Key)." };
      }
 
+     console.log("BREVO_API_KEY loaded (length):", apiKey.length);
+
      if (Number.isNaN(listId) || listId <= 0) {
           console.error("CRITICAL: LIST_ID is invalid:", process.env.LIST_ID);
           return { success: false, error: "Configuration du serveur incomplète (Invalid LIST_ID)." };
