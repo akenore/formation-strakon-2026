@@ -1,16 +1,21 @@
-const FREE_EMAIL_PROVIDERS = [
-     "gmail.com",
-     "hotmail.com",
-     "outlook.com",
-     "yahoo.com",
-     "icloud.com",
-     "live.com",
-     "msn.com",
-     "aol.com",
-     "protonmail.com",
-     "zoho.com",
+const FREE_EMAIL_PROVIDERS_PREFIXES = [
+     "gmail.",
+     "hotmail.",
+     "outlook.",
+     "yahoo.",
+     "live.",
+     "msn.",
+     "aol.",
+     "icloud.",
+     "googlemail.",
+     "protonmail.",
+     "yandex.",
+     "gmx.",
+     "zoho."
+];
+
+const FREE_EMAIL_PROVIDERS_EXACT = [
      "mail.com",
-     "gmx.com",
      "wanadoo.fr",
      "orange.fr",
      "free.fr",
@@ -24,5 +29,16 @@ const FREE_EMAIL_PROVIDERS = [
 export function isProfessionalEmail(email: string): boolean {
      if (!email || !email.includes("@")) return false;
      const domain = email.split("@")[1].toLowerCase();
-     return !FREE_EMAIL_PROVIDERS.includes(domain);
+
+     // Check specific ISP domains
+     if (FREE_EMAIL_PROVIDERS_EXACT.includes(domain)) {
+          return false;
+     }
+
+     // Check for global providers with any TLD (e.g., outlook.fr, yahoo.co.uk)
+     if (FREE_EMAIL_PROVIDERS_PREFIXES.some(prefix => domain.startsWith(prefix))) {
+          return false;
+     }
+
+     return true;
 }
