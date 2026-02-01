@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegistrationSchema, type RegistrationData } from "@/lib/schemas/contact-schema";
 import { submitContact } from "@/actions";
@@ -14,6 +16,7 @@ export default function RegistrationForm() {
           register,
           handleSubmit,
           reset,
+          control,
           formState: { errors },
      } = useForm<RegistrationData>({
           resolver: zodResolver(RegistrationSchema),
@@ -108,12 +111,19 @@ export default function RegistrationForm() {
 
                     <div>
                          <label className="block text-sm font-semibold mb-2">Téléphone *</label>
-                         <input
-                              {...register("phone")}
-                              type="tel"
-                              placeholder="+33 6 12 34 56 78"
-                              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 outline-none transition ${errors.phone ? "border-red-500 focus:border-transparent" : "border-gray-300 focus:border-transparent"
-                                   }`}
+                         <Controller
+                              name="phone"
+                              control={control}
+                              render={({ field }) => (
+                                   <PhoneInput
+                                        {...field}
+                                        international
+                                        defaultCountry="FR"
+                                        placeholder="+33 6 12 34 56 78"
+                                        className={`w-full px-4 py-3 border rounded-lg focus-within:ring-2 focus-within:ring-blue-600 outline-none transition ${errors.phone ? "border-red-500" : "border-gray-300"
+                                             } [&>input]:outline-none [&>input]:bg-transparent`}
+                                   />
+                              )}
                          />
                          {errors.phone && <p className="mt-1 text-xs text-red-500 font-medium">{errors.phone.message}</p>}
                     </div>
