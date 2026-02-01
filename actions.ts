@@ -1,6 +1,7 @@
 "use server";
 
 import * as Brevo from "@getbrevo/brevo";
+import { parsePhoneNumber } from "libphonenumber-js";
 
 import { RegistrationSchema } from "@/lib/schemas/contact-schema";
 
@@ -12,8 +13,6 @@ export async function submitContact(formData: FormData) {
           console.error("CRITICAL: BREVO_API_KEY is not defined in environment variables.");
           return { success: false, error: "Configuration du serveur incomplète (Missing API Key)." };
      }
-
-     console.log("BREVO_API_KEY loaded (length):", apiKey.length);
 
      if (Number.isNaN(listId) || listId <= 0) {
           console.error("CRITICAL: LIST_ID is invalid:", process.env.LIST_ID);
@@ -45,13 +44,25 @@ export async function submitContact(formData: FormData) {
 
      const { email, firstname, lastname, phone, company, tva, function: function_role, message } = result.data;
 
-     // Format phone for Brevo SMS (needs international format, e.g. +33...)
-     // If it doesn't start with +, we assume it's a local number and might need a prefix, 
-     // but for now we'll just ensure it has a + if it looks like one or at least keep it as string.
-     let formattedSMS = phone.replace(/[\s.-]/g, "");
-     if (!formattedSMS.startsWith("+")) {
-          // If no prefix, we add +33 by default as a fallback if it looks like a French number
-          // or just add + if the user provided 33...
+     // Format phone for Brevo SMS using libphonenumber-js
+     let formattedSMS = phone;
+     try {
+          const phoneNumber = parsePhoneNumber(phone, "FR");
+          if (phoneNumber && phoneNumber.isValid()) {
+               formattedSMS = phoneNumber.format("E.164");
+          } else {
+               // Fallback manual formatting if parsing fails (though validation should catch this)
+               formattedSMS = phone.replace(/[\s.-]/g, "");
+               if (formattedSMS.startsWith("0")) {
+                    formattedSMS = "+33" + formattedSMS.substring(1);
+               } else if (!formattedSMS.startsWith("+")) {
+                    formattedSMS = "+" + formattedSMS;
+               }
+          }
+     } catch (e) {
+          console.error("Phone parsing error:", e);
+          // Fallback manual formatting
+          formattedSMS = phone.replace(/[\s.-]/g, "");
           if (formattedSMS.startsWith("0")) {
                formattedSMS = "+33" + formattedSMS.substring(1);
           } else if (!formattedSMS.startsWith("+")) {
@@ -79,29 +90,21 @@ export async function submitContact(formData: FormData) {
           contact.listIds = [listId];
           contact.updateEnabled = true;
 
-          console.log("Submitting to Brevo with listId:", listId);
-          console.log("Contact Data:", { email, attributes: contact.attributes });
-
           await apiInstance.createContact(contact);
-          console.log("Brevo submission successful");
           return { success: true };
      } catch (error: any) {
-          console.error("Error submitting to Brevo:");
+          console.error("Error submitting to Brevo");
           if (error.response) {
-               console.error("Response Status:", error.response.status);
-               console.error("Response Body:", JSON.stringify(error.response.body, null, 2));
                const apiErrorMessage =
                     error.response.body?.message ||
                     error.response.body?.error ||
-                    error.response.body?.details ||
                     "Erreur Brevo inconnue.";
                return {
                     success: false,
-                    error: `Erreur Brevo (${error.response.status}): ${apiErrorMessage}`,
+                    error: `Erreur Brevo: ${apiErrorMessage}`,
                };
           } else {
-               console.error("Error Message:", error.message);
-               return { success: false, error: `Erreur serveur: ${error.message}` };
+               return { success: false, error: "Erreur serveur lors de l'inscription." };
           }
      }
 }
