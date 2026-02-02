@@ -106,7 +106,7 @@ export default function RegistrationForm() {
                                    }`}
                          />
                          {errors.email && <p className="mt-1 text-xs text-red-500 font-medium">{errors.email.message}</p>}
-                         <p className="mt-1 text-[10px] text-gray-400">Les adresses personnelles (Gmail, Outlook, Hotmail, etc.) ne sont pas acceptées.</p>
+                         <p className="mt-1 text-[10px] text-gray-400">Les adresses comme AOL, iCloud ou ProtonMail ne sont pas acceptées.</p>
                     </div>
 
                     <div>

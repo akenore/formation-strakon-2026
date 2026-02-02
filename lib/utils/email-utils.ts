@@ -1,13 +1,6 @@
 const FREE_EMAIL_PROVIDERS_PREFIXES = [
-     "gmail.",
-     "hotmail.",
-     "outlook.",
-     "yahoo.",
-     "live.",
-     "msn.",
      "aol.",
      "icloud.",
-     "googlemail.",
      "protonmail.",
      "yandex.",
      "gmx.",
