@@ -21,7 +21,7 @@ export default function Navbar({ isScrolled, scrollToSection }: NavbarProps) {
                          onClick={(e) => scrollToSection(e, "inscription")}
                          className="px-4 py-2 bg-strakon-orange text-white text-[10px] sm:text-sm font-bold rounded-lg hover:bg-orange-600 transition-colors shadow-md whitespace-nowrap flex-shrink-0"
                     >
-                         S'inscrire maintenant
+                         Réserver ma place gratuite
                     </a>
                </div>
           </nav>

@@ -7,6 +7,14 @@ export default function FAQ() {
                     </div>
 
                     <div className="space-y-4">
+                         <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-strakon-orange">
+                              <h3 className="font-bold text-lg text-strakon-blue mb-2">Que vais-je obtenir après inscription ?</h3>
+                              <ul className="text-gray-700 list-disc list-inside mt-2 space-y-1">
+                                   <li>Accès à la formation complète</li>
+                                   <li>10 jours gratuits sur STRAKON</li>
+                                   <li>Accompagnement pour démarrer</li>
+                              </ul>
+                         </div>
                          <div className="bg-white p-6 rounded-lg shadow-md">
                               <h3 className="font-bold text-lg text-strakon-blue mb-2">Faut-il installer STRAKON avant la formation ?</h3>
                               <p className="text-gray-700">

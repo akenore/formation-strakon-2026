@@ -32,7 +32,6 @@ export async function submitContact(formData: FormData) {
           company: formData.get("company"),
           tva: formData.get("tva") || undefined,
           function: formData.get("function") || undefined,
-          message: formData.get("message") || undefined,
           consent: formData.get("consent") === "on",
      };
 
@@ -42,7 +41,7 @@ export async function submitContact(formData: FormData) {
           return { success: false, error: "Données invalides : " + result.error.issues[0].message };
      }
 
-     const { email, firstname, lastname, phone, company, tva, function: function_role, message } = result.data;
+     const { email, firstname, lastname, phone, company, tva, function: function_role } = result.data;
 
      // Format phone for Brevo SMS using libphonenumber-js
      let formattedSMS = phone;
@@ -83,7 +82,6 @@ export async function submitContact(formData: FormData) {
 
           if (tva) attributes.TVA = tva;
           if (function_role) attributes.FONCTION = function_role;
-          if (message) attributes.MESSAGE = message;
 
           contact.attributes = attributes;
 

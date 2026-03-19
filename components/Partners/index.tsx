@@ -4,6 +4,14 @@ export default function Partners() {
                <div className="max-w-7xl mx-auto px-6">
                     <div className="flex flex-col md:flex-row items-center justify-center gap-12">
                          <div className="text-center md:text-left md:flex-1">
+                              <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-6">
+                                   <span className="inline-block bg-blue-100 text-strakon-blue px-3 py-1 rounded-full text-sm font-bold shadow-sm">
+                                        +100 ingénieurs formés
+                                   </span>
+                                   <span className="inline-block bg-orange-100 text-strakon-orange px-3 py-1 rounded-full text-sm font-bold shadow-sm">
+                                        Experts BIM structure
+                                   </span>
+                              </div>
                               <p className="text-sm font-semibold text-strakon-blue uppercase tracking-wide mb-2">Organisme de formation certifié</p>
                               <h3 className="text-3xl font-bold text-gray-900 mb-4">Formation dispensée par C2IT</h3>
                               <p className="text-lg text-gray-600 mb-4">Partenaire officiel et expert STRAKON au Luxembourg et en France</p>

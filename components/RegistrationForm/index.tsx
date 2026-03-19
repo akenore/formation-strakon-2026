@@ -11,6 +11,7 @@ import { submitContact } from "@/actions";
 export default function RegistrationForm() {
      const [isSubmitting, setIsSubmitting] = useState(false);
      const [submitStatus, setSubmitStatus] = useState<{ success: boolean; message: string } | null>(null);
+     const [showOptional, setShowOptional] = useState(false);
 
      const {
           register,
@@ -28,7 +29,6 @@ export default function RegistrationForm() {
                company: "",
                tva: "",
                function: "",
-               message: "",
                consent: false,
           },
      });
@@ -128,55 +128,65 @@ export default function RegistrationForm() {
                          {errors.phone && <p className="mt-1 text-xs text-red-500 font-medium">{errors.phone.message}</p>}
                     </div>
 
-                    <div>
-                         <label className="block text-sm font-semibold mb-2">Société *</label>
-                         <input
-                              {...register("company")}
-                              type="text"
-                              placeholder="Nom de votre entreprise"
-                              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 outline-none transition ${errors.company ? "border-red-500 focus:border-transparent" : "border-gray-300 focus:border-transparent"
-                                   }`}
-                         />
-                         {errors.company && <p className="mt-1 text-xs text-red-500 font-medium">{errors.company.message}</p>}
-                    </div>
-
-                    <div>
-                         <label className="block text-sm font-semibold mb-2">N° TVA intracommunautaire</label>
-                         <input
-                              {...register("tva")}
-                              type="text"
-                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
-                              placeholder="FR12345678901"
-                         />
-                         {errors.tva && <p className="mt-1 text-xs text-red-500 font-medium">{errors.tva.message}</p>}
-                    </div>
-
-                    <div>
-                         <label className="block text-sm font-semibold mb-2">Fonction</label>
-                         <select
-                              {...register("function")}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+                    {/* Toggle Optional Fields */}
+                    <div className="pt-2 pb-2">
+                         <button
+                              type="button"
+                              onClick={() => setShowOptional(!showOptional)}
+                              className="text-strakon-blue font-medium text-sm flex items-center gap-2 hover:text-blue-700 transition"
                          >
-                              <option value="">Sélectionnez votre fonction</option>
-                              <option value="Ingénieur structure">Ingénieur structure</option>
-                              <option value="Projeteur béton">Projeteur béton</option>
-                              <option value="Responsable BE">Responsable BE</option>
-                              <option value="Chef de projet">Chef de projet</option>
-                              <option value="Directeur technique">Directeur technique</option>
-                              <option value="Autre">Autre</option>
-                         </select>
-                         {errors.function && <p className="mt-1 text-xs text-red-500 font-medium">{errors.function.message}</p>}
+                              {showOptional ? (
+                                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                              ) : (
+                                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
+                              )}
+                              Informations complémentaires (optionnel)
+                         </button>
                     </div>
 
-                    <div>
-                         <label className="block text-sm font-semibold mb-2">Message (optionnel)</label>
-                         <textarea
-                              {...register("message")}
-                              rows={4}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
-                              placeholder="Questions ou besoins spécifiques..."
-                         ></textarea>
-                    </div>
+                    {showOptional && (
+                         <div className="space-y-6 animate-fade-in border-l-2 border-blue-100 pl-4 py-2">
+                              <div>
+                                   <label className="block text-sm font-semibold mb-2">Fonction</label>
+                                   <select
+                                        {...register("function")}
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+                                   >
+                                        <option value="">Sélectionnez votre fonction</option>
+                                        <option value="Ingénieur structure">Ingénieur structure</option>
+                                        <option value="Projeteur béton">Projeteur béton</option>
+                                        <option value="Responsable BE">Responsable BE</option>
+                                        <option value="Chef de projet">Chef de projet</option>
+                                        <option value="Directeur technique">Directeur technique</option>
+                                        <option value="Autre">Autre</option>
+                                   </select>
+                                   {errors.function && <p className="mt-1 text-xs text-red-500 font-medium">{errors.function.message}</p>}
+                              </div>
+
+                              <div>
+                                   <label className="block text-sm font-semibold mb-2">Société</label>
+                                   <input
+                                        {...register("company")}
+                                        type="text"
+                                        placeholder="Nom de votre entreprise"
+                                        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 outline-none transition ${errors.company ? "border-red-500 focus:border-transparent" : "border-gray-300 focus:border-transparent"
+                                             }`}
+                                   />
+                                   {errors.company && <p className="mt-1 text-xs text-red-500 font-medium">{errors.company.message}</p>}
+                              </div>
+
+                              <div>
+                                   <label className="block text-sm font-semibold mb-2">N° TVA intracommunautaire</label>
+                                   <input
+                                        {...register("tva")}
+                                        type="text"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+                                        placeholder="FR12345678901"
+                                   />
+                                   {errors.tva && <p className="mt-1 text-xs text-red-500 font-medium">{errors.tva.message}</p>}
+                              </div>
+                         </div>
+                    )}
 
                     <div className="flex items-start">
                          <input
@@ -215,6 +225,10 @@ export default function RegistrationForm() {
                          </div>
                     )}
 
+                    <div className="text-center pb-2">
+                         <p className="text-sm font-medium text-gray-600">Commencez gratuitement – aucun paiement requis</p>
+                    </div>
+
                     <button
                          type="submit"
                          disabled={isSubmitting}
@@ -229,7 +243,7 @@ export default function RegistrationForm() {
                                    Envoi en cours...
                               </div>
                          ) : (
-                              "S'inscrire à la formation gratuite"
+                              "Réserver ma place gratuite"
                          )}
                     </button>
 

@@ -26,12 +26,12 @@ export default function Hero({ scrollToSection }: HeroProps) {
                     <div className="text-center">
                          <div className="inline-block px-4 py-2 bg-strakon-orange rounded-full text-sm font-semibold mb-6">🎓 Formation 100% Gratuite</div>
                          <h1 className="text-4xl lg:text-3xl font-bold mb-6 leading-tight">
-                              Formation STRAKON
+                              Accès gratuit à STRAKON
                               <br />
-                              <span className="text-blue-200">Coffrage & Armatures</span>
+                              <span className="text-blue-200">pendant 10 jours</span>
                          </h1>
                          <p className="text-xl lg:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
-                              Découvrez STRAKON en une journée et transformez votre approche de la modélisation BIM
+                              Testez STRAKON en conditions réelles pendant la formation projets structure béton armé
                               <br />
                               <span className="text-sm opacity-80 mt-2 block font-medium uppercase tracking-wider">Action exclusive pour la France et le Luxembourg</span>
                          </p>
@@ -39,9 +39,9 @@ export default function Hero({ scrollToSection }: HeroProps) {
                               <a
                                    href="#inscription"
                                    onClick={(e) => scrollToSection(e, "inscription")}
-                                   className="inline-block px-8 py-4 btn-strakon text-white font-bold rounded-lg shadow-lg pulse-animation"
+                                   className="inline-block px-8 py-4 btn-strakon text-white font-bold rounded-lg shadow-lg pulse-animation text-lg"
                               >
-                                   S'inscrire maintenant
+                                   Réserver ma place gratuite
                               </a>
                          </div>
                     </div>

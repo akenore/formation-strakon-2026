@@ -9,15 +9,15 @@ export default function Stats() {
                          </div>
                          <div>
                               <div className="text-4xl font-bold text-strakon-orange">100%</div>
-                              <div className="text-gray-600 mt-2">Pratique & Gratuite</div>
+                              <div className="text-gray-600 mt-2">Prise en main guidée</div>
                          </div>
                          <div>
-                              <div className="text-4xl font-bold text-strakon-blue">14 jours</div>
-                              <div className="text-gray-600 mt-2">Accès prolongé*</div>
+                              <div className="text-4xl font-bold text-strakon-blue">10 jours</div>
+                              <div className="text-gray-600 mt-2">Accès gratuit STRAKON</div>
                          </div>
                          <div>
                               <div className="text-4xl font-bold text-strakon-orange">BIM</div>
-                              <div className="text-gray-600 mt-2">Technologie avancée</div>
+                              <div className="text-gray-600 mt-2">Méthodologie professionnelle</div>
                          </div>
                     </div>
                </div>

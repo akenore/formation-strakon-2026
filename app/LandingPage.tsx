@@ -61,9 +61,9 @@ export default function LandingPage() {
 
                     <TargetAudience />
 
-                    <Pricing scrollToSection={scrollToSection} />
-
                     <Prerequisites />
+
+                    <Pricing scrollToSection={scrollToSection} />
 
                     <FAQ />
 
@@ -72,7 +72,7 @@ export default function LandingPage() {
                          <div className="max-w-4xl mx-auto px-6">
                               <div className="text-center mb-12">
                                    <h2 className="text-3xl lg:text-4xl font-bold mb-4">Inscription gratuite</h2>
-                                   <p className="text-xl text-gray-300">Places limitées - Réservez dès maintenant</p>
+                                   <p className="text-xl md:text-2xl text-gray-300">⏳ Places limitées – inscription recommandée dès maintenant</p>
                                    <div className="mt-6 inline-block bg-blue-900/50 border border-blue-700/50 px-6 py-3 rounded-xl">
                                         <p className="text-sm text-white italic">
                                              Cette session gratuite est réservée aux structures basées en France et au Luxembourg. <br className="hidden sm:block" />

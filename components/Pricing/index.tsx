@@ -9,8 +9,8 @@ export default function Pricing({ scrollToSection }: PricingProps) {
           <div className="bg-gradient-to-br from-blue-900 to-blue-800 text-white py-16 lg:py-24">
                <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-12">
-                         <h2 className="text-3xl lg:text-4xl font-bold mb-4">💡 Offre découverte STRAKON</h2>
-                         <p className="text-xl text-blue-200">Prolongez votre expérience pendant 3 mois</p>
+                         <h2 className="text-3xl lg:text-4xl font-bold mb-4">Après la formation, continuez avec STRAKON</h2>
+                         <p className="text-xl text-blue-200">Différentes offres pour s'adapter à vos besoins</p>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-20">
@@ -91,14 +91,17 @@ export default function Pricing({ scrollToSection }: PricingProps) {
                               </ul>
                          </div>
                     </div>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                         <a
-                              href="#inscription"
-                              onClick={(e) => scrollToSection(e, "inscription")}
-                              className="inline-block px-8 py-4 btn-strakon text-white font-bold rounded-lg shadow-lg pulse-animation"
-                         >
-                              S'inscrire maintenant
-                         </a>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
+                         <div className="text-center">
+                              <p className="text-blue-200 mb-4 font-medium italic">Formation gratuite, sans engagement – possibilité de continuer avec STRAKON ensuite</p>
+                              <a
+                                   href="#inscription"
+                                   onClick={(e) => scrollToSection(e, "inscription")}
+                                   className="inline-block px-8 py-4 btn-strakon text-white font-bold rounded-lg shadow-lg pulse-animation"
+                              >
+                                   Réserver ma place gratuite
+                              </a>
+                         </div>
                     </div>
                </div>
           </div>

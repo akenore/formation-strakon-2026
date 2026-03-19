@@ -17,10 +17,9 @@ export const RegistrationSchema = z.object({
           .refine((val) => isValidPhoneNumber(val), {
                message: "Numéro de téléphone invalide (vérifiez le pays et le format)",
           }),
-     company: z.string().min(2, "Le nom de la société est requis"),
+     company: z.string().optional(),
      tva: z.string().optional(),
-     function: z.string().min(1, "Veuillez sélectionner une fonction"),
-     message: z.string().optional(),
+     function: z.string().optional(),
      consent: z.boolean().refine((v) => v === true, {
           message: "Vous devez accepter l'utilisation de vos données",
      }),

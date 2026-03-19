@@ -13,7 +13,7 @@ export default function Objectives() {
                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                               </svg>
                          </div>
-                         <h3 className="text-lg font-bold text-gray-900 mb-2">Découvrir STRAKON</h3>
+                         <h3 className="text-lg font-bold text-gray-900 mb-2">Prendre en main STRAKON rapidement</h3>
                          <p className="text-gray-600">Explorez toutes les fonctionnalités principales du logiciel BIM</p>
                     </div>
 
@@ -29,7 +29,7 @@ export default function Objectives() {
                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                               </svg>
                          </div>
-                         <h3 className="text-lg font-bold text-gray-900 mb-2">Configuration</h3>
+                         <h3 className="text-lg font-bold text-gray-900 mb-2">Configurer vos projets efficacement</h3>
                          <p className="text-gray-600">Naviguez dans l'interface et configurez vos projets</p>
                     </div>
 
@@ -44,8 +44,8 @@ export default function Objectives() {
                                    ></path>
                               </svg>
                          </div>
-                         <h3 className="text-lg font-bold text-gray-900 mb-2">Modélisation</h3>
-                         <p className="text-gray-600">Créez coffrage et armatures de manière professionnelle</p>
+                         <h3 className="text-lg font-bold text-gray-900 mb-2">Modéliser comme un professionnel</h3>
+                         <p className="text-gray-600">Créez coffrage et armatures de manière claire</p>
                     </div>
 
                     <div className="bg-white p-8 rounded-xl shadow-lg hover-lift border-t-4 border-strakon-orange">
@@ -54,7 +54,7 @@ export default function Objectives() {
                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                               </svg>
                          </div>
-                         <h3 className="text-lg font-bold text-gray-900 mb-2">Évaluation ROI</h3>
+                         <h3 className="text-lg font-bold text-gray-900 mb-2">Optimiser vos projets et votre rentabilité</h3>
                          <p className="text-gray-600">Mesurez l'apport de STRAKON pour vos projets</p>
                     </div>
                </div>
