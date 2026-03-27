@@ -25,6 +25,7 @@ export async function submitContact(formData: FormData) {
 
      // Extract data for validation
      const rawData = {
+          date_formation: formData.get("date_formation"),
           firstname: formData.get("firstname"),
           lastname: formData.get("lastname"),
           email: formData.get("email"),
@@ -41,7 +42,15 @@ export async function submitContact(formData: FormData) {
           return { success: false, error: "Données invalides : " + result.error.issues[0].message };
      }
 
-     const { email, firstname, lastname, phone, company, tva, function: function_role } = result.data;
+     const { date_formation, email, firstname, lastname, phone, company, tva, function: function_role } = result.data;
+
+     // Determine target Brevo List ID based on the selected training date
+     let targetListId = listId; // Fallback to default if somehow needed, though validation prevents this
+     if (date_formation === "2026-04-23") {
+          targetListId = 47;
+     } else if (date_formation === "2026-05-21") {
+          targetListId = 48;
+     }
 
      // Format phone for Brevo SMS using libphonenumber-js
      let formattedSMS = phone;
@@ -85,7 +94,7 @@ export async function submitContact(formData: FormData) {
 
           contact.attributes = attributes;
 
-          contact.listIds = [listId];
+          contact.listIds = [targetListId];
           contact.updateEnabled = true;
 
           await apiInstance.createContact(contact);

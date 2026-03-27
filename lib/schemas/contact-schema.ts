@@ -3,6 +3,7 @@ import { isValidPhoneNumber } from "libphonenumber-js";
 import { isProfessionalEmail } from "@/lib/utils/email-utils";
 
 export const RegistrationSchema = z.object({
+     date_formation: z.string().min(1, "Veuillez sélectionner une date de formation"),
      firstname: z.string().min(2, "Le prénom est trop court"),
      lastname: z.string().min(2, "Le nom est trop court"),
      email: z

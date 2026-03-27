@@ -18,10 +18,13 @@ export default function RegistrationForm() {
           handleSubmit,
           reset,
           control,
+          setValue,
+          watch,
           formState: { errors },
      } = useForm<RegistrationData>({
           resolver: zodResolver(RegistrationSchema),
           defaultValues: {
+               date_formation: "",
                firstname: "",
                lastname: "",
                email: "",
@@ -68,9 +71,50 @@ export default function RegistrationForm() {
           }
      };
 
+     // Watch the date_formation field to power the UI selection state
+     const selectedDate = watch("date_formation");
+
+     const trainingDates = [
+          { value: "2026-04-23", label: "23 Avril 2026" },
+          { value: "2026-05-21", label: "21 Mai 2026" },
+     ];
+
      return (
           <div className="bg-white text-gray-900 p-8 lg:p-12 rounded-2xl shadow-2xl">
                <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+                    {/* Date Selection */}
+                    <div>
+                         <label className="block text-sm font-semibold mb-3">Sélectionnez la date de formation *</label>
+                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                              {trainingDates.map((date) => (
+                                   <button
+                                        key={date.value}
+                                        type="button"
+                                        onClick={() => setValue("date_formation", date.value, { shouldValidate: true })}
+                                        className={`p-4 rounded-xl border-2 text-left transition-all duration-200 ${
+                                             selectedDate === date.value
+                                                  ? "border-blue-600 bg-blue-50 ring-2 ring-blue-600 ring-opacity-20"
+                                                  : "border-gray-200 hover:border-blue-300 hover:bg-gray-50 bg-white"
+                                        }`}
+                                   >
+                                        <div className="flex items-center justify-between">
+                                             <span className={`font-medium ${selectedDate === date.value ? "text-blue-700" : "text-gray-700"}`}>
+                                                  {date.label}
+                                             </span>
+                                             {selectedDate === date.value && (
+                                                  <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                                  </svg>
+                                             )}
+                                        </div>
+                                   </button>
+                              ))}
+                         </div>
+                         {/* Hidden field for react-hook-form registration if needed, though setValue handles state. We register it to ensure validation works seamlessly. */}
+                         <input type="hidden" {...register("date_formation")} />
+                         {errors.date_formation && <p className="mt-2 text-sm text-red-500 font-medium">{errors.date_formation.message}</p>}
+                    </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                          <div>
                               <label className="block text-sm font-semibold mb-2">Prénom *</label>
