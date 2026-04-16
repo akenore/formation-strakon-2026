@@ -75,7 +75,7 @@ export default function RegistrationForm() {
      const selectedDate = watch("date_formation");
 
      const trainingDates = [
-          { value: "2026-04-23", label: "23 Avril 2026" },
+          { value: "2026-04-23", label: "23 Avril 2026", disabled: true, tag: "Complet" },
           { value: "2026-05-21", label: "21 Mai 2026" },
      ];
 
@@ -90,18 +90,24 @@ export default function RegistrationForm() {
                                    <button
                                         key={date.value}
                                         type="button"
+                                        disabled={date.disabled}
                                         onClick={() => setValue("date_formation", date.value, { shouldValidate: true })}
-                                        className={`p-4 rounded-xl border-2 text-left transition-all duration-200 ${
-                                             selectedDate === date.value
-                                                  ? "border-blue-600 bg-blue-50 ring-2 ring-blue-600 ring-opacity-20"
-                                                  : "border-gray-200 hover:border-blue-300 hover:bg-gray-50 bg-white"
+                                        className={`p-4 rounded-xl border-2 text-left transition-all duration-200 relative ${
+                                             date.disabled
+                                                  ? "border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed"
+                                                  : selectedDate === date.value
+                                                       ? "border-blue-600 bg-blue-50 ring-2 ring-blue-600 ring-opacity-20"
+                                                       : "border-gray-200 hover:border-blue-300 hover:bg-gray-50 bg-white"
                                         }`}
                                    >
                                         <div className="flex items-center justify-between">
-                                             <span className={`font-medium ${selectedDate === date.value ? "text-blue-700" : "text-gray-700"}`}>
+                                             <span className={`font-medium ${date.disabled ? "text-gray-500" : selectedDate === date.value ? "text-blue-700" : "text-gray-700"}`}>
                                                   {date.label}
                                              </span>
-                                             {selectedDate === date.value && (
+                                             {date.tag && (
+                                                  <span className="text-xs font-bold text-red-600 bg-red-100 px-2 py-1 rounded-md uppercase tracking-wider">{date.tag}</span>
+                                             )}
+                                             {!date.disabled && selectedDate === date.value && (
                                                   <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                                   </svg>
