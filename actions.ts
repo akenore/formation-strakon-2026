@@ -1,6 +1,6 @@
 "use server";
 
-import * as Brevo from "@getbrevo/brevo";
+import { BrevoClient } from "@getbrevo/brevo";
 import { parsePhoneNumber } from "libphonenumber-js";
 
 import { RegistrationSchema } from "@/lib/schemas/contact-schema";
@@ -20,9 +20,7 @@ export async function submitContact(formData: FormData) {
      }
 
      // Configure API instance
-     const apiInstance = new Brevo.ContactsApi();
-     apiInstance.setApiKey(Brevo.ContactsApiApiKeys.apiKey, apiKey);
-
+     const apiInstance = new BrevoClient({ apiKey });
      // Extract data for validation
      const rawData = {
           date_formation: formData.get("date_formation"),
@@ -79,9 +77,6 @@ export async function submitContact(formData: FormData) {
      }
 
      try {
-          const contact = new Brevo.CreateContact();
-          contact.email = email;
-
           const attributes: Record<string, any> = {
                NOM: lastname,
                PRENOM: firstname,
@@ -92,26 +87,23 @@ export async function submitContact(formData: FormData) {
           if (tva) attributes.TVA = tva;
           if (function_role) attributes.FONCTION = function_role;
 
-          contact.attributes = attributes;
-
-          contact.listIds = [targetListId];
-          contact.updateEnabled = true;
-
-          await apiInstance.createContact(contact);
+          await apiInstance.contacts.createContact({
+               email: email,
+               attributes: attributes,
+               listIds: [targetListId],
+               updateEnabled: true
+          });
           return { success: true };
      } catch (error: any) {
-          console.error("Error submitting to Brevo");
-          if (error.response) {
-               const apiErrorMessage =
-                    error.response.body?.message ||
-                    error.response.body?.error ||
-                    "Erreur Brevo inconnue.";
-               return {
-                    success: false,
-                    error: `Erreur Brevo: ${apiErrorMessage}`,
-               };
-          } else {
-               return { success: false, error: "Erreur serveur lors de l'inscription." };
-          }
+          console.error("Error submitting to Brevo", error);
+          const apiErrorMessage =
+               error.body?.message ||
+               error.body?.error ||
+               error.message ||
+               "Erreur Brevo inconnue.";
+          return {
+               success: false,
+               error: `Erreur Brevo: ${apiErrorMessage}`,
+          };
      }
 }

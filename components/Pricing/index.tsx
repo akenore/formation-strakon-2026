@@ -18,6 +18,7 @@ export default function Pricing({ scrollToSection }: PricingProps) {
                                         src="/strakon-usb.png"
                                         alt="Clé de licence STRAKON USB"
                                         fill
+                                        sizes="(max-width: 768px) 192px, 256px"
                                         className="object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
                                    />
                               </div>
