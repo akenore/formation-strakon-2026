@@ -24,7 +24,7 @@ export default function RegistrationForm() {
      } = useForm<RegistrationData>({
           resolver: zodResolver(RegistrationSchema),
           defaultValues: {
-               date_formation: "",
+               date_formation: "2026-06-23",
                firstname: "",
                lastname: "",
                email: "",
@@ -74,9 +74,8 @@ export default function RegistrationForm() {
      // Watch the date_formation field to power the UI selection state
      const selectedDate = watch("date_formation");
 
-     const trainingDates = [
-          { value: "2026-04-23", label: "23 Avril 2026", disabled: true, tag: "Complet" },
-          { value: "2026-05-21", label: "21 Mai 2026" },
+     const trainingDates: { value: string; label: string; disabled?: boolean; tag?: string }[] = [
+          { value: "2026-06-23", label: "23 Juin 2026" },
      ];
 
      return (
