@@ -8,6 +8,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RegistrationSchema, type RegistrationData } from "@/lib/schemas/contact-schema";
 import { submitContact } from "@/actions";
 
+interface TrainingDate {
+     value: string;
+     label: string;
+     disabled?: boolean;
+     tag?: string;
+}
+
+const trainingDates: TrainingDate[] = [
+     { value: "2026-09-29", label: "29 Septembre 2026" },
+];
+
 export default function RegistrationForm() {
      const [isSubmitting, setIsSubmitting] = useState(false);
      const [submitStatus, setSubmitStatus] = useState<{ success: boolean; message: string } | null>(null);
@@ -24,7 +35,7 @@ export default function RegistrationForm() {
      } = useForm<RegistrationData>({
           resolver: zodResolver(RegistrationSchema),
           defaultValues: {
-               date_formation: "2026-06-23",
+               date_formation: trainingDates[0]?.value || "2026-09-29",
                firstname: "",
                lastname: "",
                email: "",
@@ -54,7 +65,17 @@ export default function RegistrationForm() {
                          success: true,
                          message: "Inscription réussie ! Nous vous contacterons prochainement.",
                     });
-                    reset();
+                    reset({
+                         date_formation: trainingDates[0]?.value || "2026-09-29",
+                         firstname: "",
+                         lastname: "",
+                         email: "",
+                         phone: "",
+                         company: "",
+                         tva: "",
+                         function: "",
+                         consent: false,
+                    });
                } else {
                     setSubmitStatus({
                          success: false,
@@ -74,48 +95,66 @@ export default function RegistrationForm() {
      // Watch the date_formation field to power the UI selection state
      const selectedDate = watch("date_formation");
 
-     const trainingDates: { value: string; label: string; disabled?: boolean; tag?: string }[] = [
-          { value: "2026-06-23", label: "23 Juin 2026" },
-     ];
-
      return (
           <div className="bg-white text-gray-900 p-8 lg:p-12 rounded-2xl shadow-2xl">
                <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-                    {/* Date Selection */}
+                    {/* Date Selection / Info */}
                     <div>
-                         <label className="block text-sm font-semibold mb-3">Sélectionnez la date de formation *</label>
-                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              {trainingDates.map((date) => (
-                                   <button
-                                        key={date.value}
-                                        type="button"
-                                        disabled={date.disabled}
-                                        onClick={() => setValue("date_formation", date.value, { shouldValidate: true })}
-                                        className={`p-4 rounded-xl border-2 text-left transition-all duration-200 relative ${
-                                             date.disabled
-                                                  ? "border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed"
-                                                  : selectedDate === date.value
-                                                       ? "border-blue-600 bg-blue-50 ring-2 ring-blue-600 ring-opacity-20"
-                                                       : "border-gray-200 hover:border-blue-300 hover:bg-gray-50 bg-white"
-                                        }`}
-                                   >
-                                        <div className="flex items-center justify-between">
-                                             <span className={`font-medium ${date.disabled ? "text-gray-500" : selectedDate === date.value ? "text-blue-700" : "text-gray-700"}`}>
-                                                  {date.label}
-                                             </span>
-                                             {date.tag && (
-                                                  <span className="text-xs font-bold text-red-600 bg-red-100 px-2 py-1 rounded-md uppercase tracking-wider">{date.tag}</span>
-                                             )}
-                                             {!date.disabled && selectedDate === date.value && (
-                                                  <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                                                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                                  </svg>
-                                             )}
+                         {trainingDates.length === 1 ? (
+                              <div className="p-4 rounded-xl border border-blue-200 bg-blue-50/70 flex items-center justify-between">
+                                   <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-lg bg-strakon-blue text-white flex items-center justify-center shadow-sm">
+                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                             </svg>
                                         </div>
-                                   </button>
-                              ))}
-                         </div>
-                         {/* Hidden field for react-hook-form registration if needed, though setValue handles state. We register it to ensure validation works seamlessly. */}
+                                        <div>
+                                             <span className="text-xs font-semibold uppercase tracking-wider text-strakon-blue block">Session de formation</span>
+                                             <span className="font-bold text-gray-900 text-base">{trainingDates[0].label}</span>
+                                        </div>
+                                   </div>
+                                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 border border-blue-200">
+                                        <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                                        Date sélectionnée
+                                   </span>
+                              </div>
+                         ) : (
+                              <>
+                                   <label className="block text-sm font-semibold mb-3">Sélectionnez la date de formation *</label>
+                                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        {trainingDates.map((date) => (
+                                             <button
+                                                  key={date.value}
+                                                  type="button"
+                                                  disabled={date.disabled}
+                                                  onClick={() => setValue("date_formation", date.value, { shouldValidate: true })}
+                                                  className={`p-4 rounded-xl border-2 text-left transition-all duration-200 relative ${
+                                                       date.disabled
+                                                            ? "border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed"
+                                                            : selectedDate === date.value
+                                                                 ? "border-blue-600 bg-blue-50 ring-2 ring-blue-600 ring-opacity-20"
+                                                                 : "border-gray-200 hover:border-blue-300 hover:bg-gray-50 bg-white"
+                                                  }`}
+                                             >
+                                                  <div className="flex items-center justify-between">
+                                                       <span className={`font-medium ${date.disabled ? "text-gray-500" : selectedDate === date.value ? "text-blue-700" : "text-gray-700"}`}>
+                                                            {date.label}
+                                                       </span>
+                                                       {date.tag && (
+                                                            <span className="text-xs font-bold text-red-600 bg-red-100 px-2 py-1 rounded-md uppercase tracking-wider">{date.tag}</span>
+                                                       )}
+                                                       {!date.disabled && selectedDate === date.value && (
+                                                            <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                                                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                                            </svg>
+                                                       )}
+                                                  </div>
+                                             </button>
+                                        ))}
+                                   </div>
+                              </>
+                         )}
+                         {/* Hidden input to ensure form registration */}
                          <input type="hidden" {...register("date_formation")} />
                          {errors.date_formation && <p className="mt-2 text-sm text-red-500 font-medium">{errors.date_formation.message}</p>}
                     </div>

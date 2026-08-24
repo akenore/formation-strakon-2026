@@ -7,7 +7,7 @@ import { RegistrationSchema } from "@/lib/schemas/contact-schema";
 
 export async function submitContact(formData: FormData) {
      const apiKey = process.env.BREVO_API_KEY;
-     const listId = parseInt(process.env.LIST_ID || "42", 10);
+     const listId = parseInt(process.env.LIST_ID || "50", 10);
 
      if (!apiKey) {
           console.error("CRITICAL: BREVO_API_KEY is not defined in environment variables.");
@@ -44,7 +44,9 @@ export async function submitContact(formData: FormData) {
 
      // Determine target Brevo List ID based on the selected training date
      let targetListId = listId; // Fallback to default if somehow needed, though validation prevents this
-     if (date_formation === "2026-04-23") {
+     if (date_formation === "2026-09-29" || date_formation === "29/09/2026") {
+          targetListId = 50;
+     } else if (date_formation === "2026-04-23") {
           targetListId = 47;
      } else if (date_formation === "2026-05-21") {
           targetListId = 48;
