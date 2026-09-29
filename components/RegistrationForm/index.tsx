@@ -16,7 +16,7 @@ interface TrainingDate {
 }
 
 const trainingDates: TrainingDate[] = [
-     { value: "2026-09-29", label: "29 Septembre 2026" },
+     { value: "2026-10-13", label: "13 Octobre 2026" },
 ];
 
 export default function RegistrationForm() {
@@ -35,7 +35,7 @@ export default function RegistrationForm() {
      } = useForm<RegistrationData>({
           resolver: zodResolver(RegistrationSchema),
           defaultValues: {
-               date_formation: trainingDates[0]?.value || "2026-09-29",
+               date_formation: trainingDates[0]?.value || "2026-10-13",
                firstname: "",
                lastname: "",
                email: "",
@@ -66,7 +66,7 @@ export default function RegistrationForm() {
                          message: "Inscription réussie ! Nous vous contacterons prochainement.",
                     });
                     reset({
-                         date_formation: trainingDates[0]?.value || "2026-09-29",
+                         date_formation: trainingDates[0]?.value || "2026-10-13",
                          firstname: "",
                          lastname: "",
                          email: "",
@@ -94,6 +94,7 @@ export default function RegistrationForm() {
 
      // Watch the date_formation field to power the UI selection state
      const selectedDate = watch("date_formation");
+
 
      return (
           <div className="bg-white text-gray-900 p-8 lg:p-12 rounded-2xl shadow-2xl">
