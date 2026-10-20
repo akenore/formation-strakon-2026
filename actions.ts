@@ -54,6 +54,11 @@ export async function submitContact(formData: FormData) {
           targetListId = parseInt(process.env.LIST_ID_NOVEMBER || "55", 10);
      }
 
+     if (Number.isNaN(targetListId) || targetListId <= 0) {
+          console.error("CRITICAL: Resolved targetListId is invalid:", targetListId, "for date:", date_formation);
+          return { success: false, error: "Configuration du serveur incomplète (Invalid target List ID)." };
+     }
+
      // Format phone for Brevo SMS using libphonenumber-js
      let formattedSMS = phone;
      try {
