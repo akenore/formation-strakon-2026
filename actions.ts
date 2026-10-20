@@ -50,8 +50,8 @@ export async function submitContact(formData: FormData) {
           targetListId = 47;
      } else if (date_formation === "2026-05-21") {
           targetListId = 48;
-     } else if (date_formation === "2026-10-13") {
-          targetListId = parseInt(process.env.LIST_ID_OCTOBER || "53", 10);
+     } else if (date_formation === "2026-11-17") {
+          targetListId = parseInt(process.env.LIST_ID_NOVEMBER || "55", 10);
      }
 
      // Format phone for Brevo SMS using libphonenumber-js
