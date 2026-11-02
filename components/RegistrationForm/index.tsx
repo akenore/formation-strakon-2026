@@ -7,6 +7,7 @@ import "react-phone-number-input/style.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegistrationSchema, type RegistrationData } from "@/lib/schemas/contact-schema";
 import { submitContact } from "@/actions";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 interface TrainingDate {
      value: string;
@@ -61,6 +62,13 @@ export default function RegistrationForm() {
           try {
                const result = await submitContact(formData);
                if (result.success) {
+                    // Conversion pour GA4 et Meta (via GTM). Aucune donnée personnelle dans le dataLayer.
+                    sendGTMEvent({
+                         event: "generate_lead",
+                         form_name: "inscription_formation_strakon",
+                         training_date: data.date_formation,
+                         event_id: crypto.randomUUID(),
+                    });
                     setSubmitStatus({
                          success: true,
                          message: "Inscription réussie ! Nous vous contacterons prochainement.",
