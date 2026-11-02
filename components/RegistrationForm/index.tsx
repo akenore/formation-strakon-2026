@@ -63,12 +63,21 @@ export default function RegistrationForm() {
                const result = await submitContact(formData);
                if (result.success) {
                     // Conversion pour GA4 et Meta (via GTM). Aucune donnée personnelle dans le dataLayer.
-                    sendGTMEvent({
-                         event: "generate_lead",
-                         form_name: "inscription_formation_strakon",
-                         training_date: data.date_formation,
-                         event_id: crypto.randomUUID(),
-                    });
+                    // Le suivi ne doit jamais modifier le résultat de l'inscription.
+                    try {
+                         const eventId =
+                              typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+                                   ? crypto.randomUUID()
+                                   : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+                         sendGTMEvent({
+                              event: "generate_lead",
+                              form_name: "inscription_formation_strakon",
+                              training_date: data.date_formation,
+                              event_id: eventId,
+                         });
+                    } catch {
+                         // Erreur de suivi ignorée.
+                    }
                     setSubmitStatus({
                          success: true,
                          message: "Inscription réussie ! Nous vous contacterons prochainement.",
